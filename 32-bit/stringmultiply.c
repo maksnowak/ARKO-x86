@@ -11,8 +11,6 @@ char *smul(char *d, char *s1, char *s2);
 
 int main(int argc, char *argv[]) {
     char result[19]; // największy wynik mnożenia długich liczb całkowitych będzie zajmował 19 znaków
-    char first[10] = argv[1];
-    char second[10] = argv[2];
-    printf("%s * %s = ", first, second);
-    printf("%s\n", smul(result, first, second));
+    printf("%s * %s = ", argv[1], argv[2]);
+    printf("%s\n", smul(result, argv[1], argv[2]));
 }
