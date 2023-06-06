@@ -1,7 +1,7 @@
 EXEFILE = smul
 OBJECTS = stringmultiply.o smul.o
-CCFMT = -m32
-NASMFMT = -f elf32
+CCFMT = -m32 -g
+NASMFMT = -f elf32 -g -F dwarf
 CCOPT = 
 NASMOPT = -w+all
 
