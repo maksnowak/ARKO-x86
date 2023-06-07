@@ -14,22 +14,21 @@ smul:
     push ebx
     push esi
     push edi
-    mov edx, [ebp+8] ; wynik
     mov esi, [ebp+12] ; s1
     mov edi, [ebp+16] ; s2
-    mov cl, 0   ; carry
-    mov ch, 10 ; potrzebne do sprawdzenia przeniesienia
+    mov bl, 0   ; carry
+    mov bh, 10 ; potrzebne do sprawdzenia przeniesienia
     mov eax, 0 ; zerowanie rejestru
-    mov ebx, 0 ; zerowanie rejestru
+    mov ecx, 0 ; zerowanie rejestru
 iterate_s1:
-    mov bl, [esi]
-    test bl, bl
+    mov al, [esi]
+    test al, al
     jz iterate_s2
     inc esi
     jmp iterate_s1
 iterate_s2:
-    mov bl, [edi]
-    test bl, bl
+    mov al, [edi]
+    test al, al
     jz multiply
     inc edi
     jmp iterate_s2
@@ -37,33 +36,33 @@ multiply:
     dec esi
     dec edi
 multiply_digit:
-    mov bl, [esi]
-    mov bh, [edi]
-    cmp bl, 0
+    mov al, [esi]
+    mov ah, [edi]
+    cmp al, 0
     jz next_digit
     dec esi
-    sub bl, '0'
-    sub bh, '0'
-    mul bh
+    sub al, '0'
+    sub ah, '0'
+    mul ah
     aam
     ; dodaj cyfrę jedności wyniku
-    add [edx], al
+    add [ecx], al
     ; dodaj cyfrę dziesiątek wyniku
-    add [edx+1], ah
-    add [edx+1], cl ; dodaj przeniesienie
+    add [ecx+1], ah
+    add [ecx+1], bl ; dodaj przeniesienie
     ; sprawdź, czy jest przeniesienie
-    cmp [edx+1], ch
+    cmp [ecx+1], bh
     jge carry
     ; jeśli nie ma przeniesienia, to zwiększ wskaźnik na wynik
-    inc edx
+    inc ecx
     jmp multiply_digit
 carry:
     ; jeśli jest przeniesienie, zachowaj jego wartość do rejestru cl
-    mov cl, 1
+    mov bl, 1
     ; oraz usuń je z wyniku
-    sub [edx+1], ch
+    sub [ecx+1], bh
     ; zwiększ wskaźnik na wynik
-    inc edx
+    inc ecx
     jmp multiply_digit
 next_digit:
 ; epilog
