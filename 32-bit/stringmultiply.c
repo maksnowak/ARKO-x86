@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
     printf("%s * %s = ", argv[1], argv[2]);
-    char *result_buf = malloc(strlen(argv[1]) + strlen(argv[2]));
+    char *result_buf = malloc(strlen(argv[1]) + strlen(argv[2]) + 1);
     char *result = smul(result_buf, argv[1], argv[2]);
     puts(result);
     free(result_buf);
