@@ -10,7 +10,16 @@
 char *smul(char *d, char *s1, char *s2);
 
 int main(int argc, char *argv[]) {
-    char result[19]; // największy wynik mnożenia długich liczb całkowitych będzie zajmował 19 znaków
+    if (argc != 3) {
+        printf("Niepoprawna liczba argumentow\n");
+        return 1;
+    }
+    if (strlen(argv[1]) == 0 || strlen(argv[2]) == 0) {
+        printf("Argumenty nie moga byc puste\n");
+        return 1;
+    }
+    char *result = malloc(strlen(argv[1]) + strlen(argv[2]));
     printf("%s * %s = ", argv[1], argv[2]);
     printf("%s\n", smul(result, argv[1], argv[2]));
+    free(result);
 }
