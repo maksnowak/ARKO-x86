@@ -6,6 +6,8 @@
 // ==========================================================================================
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 char *smul(char *d, char *s1, char *s2);
 
@@ -18,8 +20,10 @@ int main(int argc, char *argv[]) {
         printf("Argumenty nie moga byc puste\n");
         return 1;
     }
-    char *result = malloc(strlen(argv[1]) + strlen(argv[2]));
     printf("%s * %s = ", argv[1], argv[2]);
-    printf("%s\n", smul(result, argv[1], argv[2]));
-    free(result);
+    char *result_buf = malloc(strlen(argv[1]) + strlen(argv[2]));
+    char *result = smul(result_buf, argv[1], argv[2]);
+    puts(result);
+    free(result_buf);
+    return 0;
 }
