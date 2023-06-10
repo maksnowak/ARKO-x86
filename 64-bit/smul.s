@@ -49,34 +49,7 @@ second_loop:
     test al, al ; Sprawdź czy null
     jnz second_loop
     dec r11 ; Zmniejsz długość łańcucha o 1 - ostatni znak to null
-multiply:
-    mov rbx, rdi    ; Wskaźnik na łańcuch wynikowy
-    add rbx, r10    ; Dodaj długość pierwszego łańcucha
-    inc rbx ; Dodaj znak null
-    add rsi, r10    ; Przesuń wskaźnik na koniec pierwszego łańcucha
-    mov r14, 0  ; Iterator mnożnej
-    mov r15, 0  ; Iterator mnożnika
-multiplicand:
-    inc r14
-    add rbx, r11   ; Przesuń wskaźnik o długość drugiego łańcucha
-    dec rbx
-    dec rdx
-    mov r12b, [rsi] ; Wczytaj cyfrę mnożnej
-    add rdx, r11    ; Przesuń wskaźnik na koniec mnożnika
-multiplier:
-    inc r15 
-    dec rbx
-    dec rdx
-    mov al, [rdx]   ; Wczytaj cyfrę mnożnika
-    mul r12b
-    add al, [rbx]   ; Dodaj wartość przeniesienia z poprzedniego mnożenia
-    div r13b    ; Podziel przez 10
-    add [rbx-1], ah ; Dodaj przeniesienie
-    mov [rbx], al   ; Zapisz cyfrę jedności
-    cmp r15, r11    ; Sprawdź czy cały mnożnik został przemnożony
-    jne multiplier
-    cmp r14, r10    ; Sprawdź czy cała mnożna została przemnożona
-    jne multiplicand
+; Multiplication to be rewritten
 remove_zeros:
     mov rax, rdi    ; Wskaźnik na łańcuch wynikowy
     mov r12b, [rax] ; Wczytaj pierwszą cyfrę wyniku
