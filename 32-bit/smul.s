@@ -78,10 +78,10 @@ remove_zeros:
 
     ; Jeśli na początku łańcucha są dwa zera, to wynikiem mnożenia jest zero
     mov cl, [eax]   ; Wczytaj następną cyfrę wyniku
-    test cl, cl     ; Sprawdź czy to null
+    test cl, cl     ; Sprawdź czy to zero
     jnz done      ; Jeśli tak, to zakończ
     dec eax     ; Przesuń wskaźnik na poprzednią cyfrę wyniku
-    add byte [eax], '0' ; Zamień null na zero
+    add byte [eax], '0' ; Zamień zero na postać ASCII
     pop ecx ; Opróżnij stos
     jmp fin
 done:
