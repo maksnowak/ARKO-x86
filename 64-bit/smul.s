@@ -75,8 +75,8 @@ multiplier:
     add al, [rdi]   ; Dodaj do wyniku wartość przeniesienia z poprzedniego mnożenia
     ; Odpowiednik instrukcji AAM
     div r13b    ; Podziel wynik przez 10
-    add [rdi-1], ah ; Dodaj przeniesienie
-    mov [rdi], al   ; Zapisz wynik
+    add [rdi-1], al ; Dodaj przeniesienie
+    mov [rdi], ah   ; Zapisz wynik
     pop rdx ; Przywróć wskaźnik na mnożnik
     inc r15 ; Zwiększ iterator mnożnika
     cmp r15, r11    ; Sprawdź czy koniec mnożnika
