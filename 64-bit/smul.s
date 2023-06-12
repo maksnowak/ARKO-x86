@@ -84,6 +84,7 @@ multiplier:
     cmp r14, r10    ; Sprawdź czy koniec mnożnej
     jne multiplicand
 remove_zeros:
+    dec rdi ; Przywróć wskaźnik na wynik na pozycję początkową(?)
     mov rax, rdi    ; Wskaźnik na łańcuch wynikowy
     mov r12b, [rax] ; Wczytaj pierwszą cyfrę wyniku
     test r12b, r12b ; Sprawdź czy zero
