@@ -69,7 +69,7 @@ multiplier:
     dec rdx ; Przesuń wskaźnik na następną cyfrę mnożnika
     mov al, [rdx]   ; Wczytaj cyfrę mnożnika
     mul r12b    ; Pomnóż cyfrę mnożnika przez cyfrę mnożnej
-    mov rcx, rdx    ; Zapisz wskaźnik na mnożnika
+    mov rcx, rdx    ; Zapisz wskaźnik na mnożnik
     xor rdx, rdx    ; Wyczyść rdx
     add al, [rdi]   ; Dodaj do wyniku wartość przeniesienia z poprzedniego mnożenia
     ; Odpowiednik instrukcji AAM
