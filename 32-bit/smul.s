@@ -71,7 +71,7 @@ multiplier:
 remove_zeros:
     mov eax, [ebp+8]    ; Wskaźnik na łańcuch wynikowy
     mov cl, [eax]   ; Wczytaj pierwszą cyfrę wyniku
-    test cl, cl     ; Sprawdź czy to null
+    test cl, cl     ; Sprawdź czy to zero
     jnz done     ; Jeśli nie, to zakończ
     inc eax     ; Przesuń wskaźnik na następną cyfrę wyniku
     dec edx     ; Zmniejsz długość drugiego łańcucha (i wyniku) o 1
