@@ -69,14 +69,14 @@ multiplier:
     dec rdx ; Przesuń wskaźnik na następną cyfrę mnożnika
     mov al, [rdx]   ; Wczytaj cyfrę mnożnika
     mul r12b    ; Pomnóż cyfrę mnożnika przez cyfrę mnożnej
-    push rdx    ; Zapisz wskaźnik na mnożnik
+    mov rcx, rdx    ; Zapisz wskaźnik na mnożnika
     xor rdx, rdx    ; Wyczyść rdx
     add al, [rdi]   ; Dodaj do wyniku wartość przeniesienia z poprzedniego mnożenia
     ; Odpowiednik instrukcji AAM
     div r13b    ; Podziel wynik przez 10
     add [rdi-1], al ; Dodaj przeniesienie
     mov [rdi], ah   ; Zapisz wynik
-    pop rdx ; Przywróć wskaźnik na mnożnik
+    mov rdx, rcx    ; Przywróć wskaźnik na mnożnik
     inc r15 ; Zwiększ iterator mnożnika
     cmp r15, r11    ; Sprawdź czy koniec mnożnika
     jl multiplier
