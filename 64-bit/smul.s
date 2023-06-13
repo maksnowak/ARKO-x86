@@ -28,7 +28,7 @@ smul:
     push r14
     push r15
     xor rax, rax    ; Wyczyść rax
-    mov r13b, 10
+    mov r13, 10
 convert_first:
     xor r10, r10    ; Wyczyść rejrestr przechowujący długość łańcucha
 first_loop:
@@ -50,9 +50,7 @@ second_loop:
     jnz second_loop
     dec r11 ; Zmniejsz długość łańcucha o 1 - ostatni znak to null
 multiply:
-    ; Przzygotuj iteratory
-    xor r14, r14
-    xor r15, r15
+    xor r14, r14    ; Wyczyść iterator mnożnej
     ; Przygotowanie do wykonania mnożenia pisemnego
     add rdi, r10    ; Przesuń wskaźnik o długość pierwszego łańcucha
     add rsi, r10    ; Przesuń wskaźnik na koniec pierwszego łańcucha
@@ -64,6 +62,7 @@ multiplicand:
     mov r12b, [rsi] ; Wczytaj cyfrę mnożnej
     ; Przejdź na koniec mnożnika
     add rdx, r11    ; Przesuń wskaźnik o długość drugiego łańcucha
+    xor r15, r15    ; Wyczyść iterator mnożnika
     inc r14 ; Zwiększ iterator mnożnej
 multiplier:
     dec rdi ; Przesuń wskaźnik na wynik
@@ -80,11 +79,11 @@ multiplier:
     pop rdx ; Przywróć wskaźnik na mnożnik
     inc r15 ; Zwiększ iterator mnożnika
     cmp r15, r11    ; Sprawdź czy koniec mnożnika
-    jne multiplier
+    jl multiplier
     cmp r14, r10    ; Sprawdź czy koniec mnożnej
-    jne multiplicand
+    jl multiplicand
 remove_zeros:
-    dec rdi ; Przywróć wskaźnik na wynik na pozycję początkową(?)
+    dec rdi ; Przywróć wskaźnik na wynik na pozycję początkową
     mov rax, rdi    ; Wskaźnik na łańcuch wynikowy
     mov r12b, [rax] ; Wczytaj pierwszą cyfrę wyniku
     test r12b, r12b ; Sprawdź czy zero
