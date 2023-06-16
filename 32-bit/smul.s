@@ -68,29 +68,25 @@ multiplier:
     jne multiplier
     cmp esi, [ebp+12]   ; Sprawdź czy cała mnożna została przemnożona
     jne multiplicand
-remove_zeros:
+    pop ecx
+    add edx, ecx    ; Długość całego łańcucha wynikowego
+    xor ecx, ecx
     mov eax, [ebp+8]    ; Wskaźnik na łańcuch wynikowy
+remove_zeros:
     mov cl, [eax]   ; Wczytaj pierwszą cyfrę wyniku
     test cl, cl     ; Sprawdź czy to zero
     jnz done     ; Jeśli nie, to zakończ
     inc eax     ; Przesuń wskaźnik na następną cyfrę wyniku
     dec edx     ; Zmniejsz długość drugiego łańcucha (i wyniku) o 1
-
-    ; Jeśli na początku łańcucha są dwa zera, to wynikiem mnożenia jest zero
-    mov cl, [eax]   ; Wczytaj następną cyfrę wyniku
-    test cl, cl     ; Sprawdź czy to zero
-    jnz done      ; Jeśli tak, to zakończ
-    dec eax     ; Przesuń wskaźnik na poprzednią cyfrę wyniku
-    add byte [eax], '0' ; Zamień zero na postać ASCII
-    pop ecx ; Opróżnij stos
-    jmp fin
+    test edx, edx   ; Sprawdź czy długość wyniku jest równa zero
+    jnz remove_zeros
+    ; Jeśli tak, to zapisz zero i zakończ
+    mov eax, [ebp+8]
+    mov byte [eax], '0'
+    jmp fin    ; Zakończ
 done:
-    ; Przygotuj do zmiany wyniku na postać ASCII
-    mov ebx, eax
-    pop ecx ; Opróżnij stos
-    ; Przesuń wskaźnik o długość łańcucha wynikowego
-    add ebx, ecx
-    add ebx, edx
+    mov ebx, eax ; Przygotuj do zmiany wyniku na postać ASCII
+    add ebx, edx ; Przesuń wskaźnik o długość łańcucha wynikowego
 convert_ascii:
     ; Konwertuj wynik na postać ASCII, dopóki nie dojdziesz do początku łańcucha
     dec ebx
