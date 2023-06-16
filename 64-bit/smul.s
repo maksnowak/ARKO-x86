@@ -82,20 +82,19 @@ multiplier:
     jl multiplier
     cmp r14, r10    ; Sprawdź czy koniec mnożnej
     jl multiplicand
-remove_zeros:
     dec rdi ; Przywróć wskaźnik na wynik na pozycję początkową
+    add r10, r11    ; Długość całego łańcucha wynikowego
     mov rax, rdi    ; Wskaźnik na łańcuch wynikowy
+remove_zeros:
     mov r12b, [rax] ; Wczytaj pierwszą cyfrę wyniku
     test r12b, r12b ; Sprawdź czy zero
     jnz done   ; Jeśli nie to zakończ
     inc rax ; Przesuń wskaźnik na kolejny znak
-    dec r11 ; Zmniejsz długość drugiego łańcucha (i wyniku) o 1
-
-    ; Jeśli na początku łańcucha są dwa zera, to wynikiem mnożenia jest zero
-    mov r12b, [rax] ; Wczytaj kolejną cyfrę wyniku
-    test r12b, r12b ; Sprawdź czy zero
-    jnz done    ; Jeśli nie to zakończ
-    dec rax ; Przesuń wskaźnik na poprzednią cyfrę wyniku
+    dec r10 ; Zmniejsz długość drugiego łańcucha (i wyniku) o 1
+    test r10, r10   ; Sprawdź czy długość wyniku jest równa zero
+    jnz remove_zeros
+    ; Jeśli tak, to zapisz zero i zakończ
+    mov rax, rdi
     add byte [rax], '0' ; Zamień zero na postać ASCII
     jmp fin
 done:
@@ -103,7 +102,6 @@ done:
     mov rbx, rax
     ; Przesuń wskaźnik o długość łańcucha wynikowego
     add rbx, r10
-    add rbx, r11
 convert_ascii:
     ; Konwertuj na postać ASCII, dopóki nie dojdziesz do początku łańcucha
     dec rbx
