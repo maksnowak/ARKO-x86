@@ -1,4 +1,4 @@
-# [PL] Arhictektura Komputerów - Projekt x86
+# [PL] Architektura Komputerów - Projekt x86
 
 To repozytorium zawiera projekt napisany w asemblerze NASM, będący jednym z zadań na przedmiocie Architektura Komputerów na Wydziale Elektroniki i Technik Informacyjnych Politechniki Warszawskiej.
 
